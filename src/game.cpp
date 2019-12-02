@@ -1,6 +1,9 @@
 #include "game.h"
 
 bool oo;
+std::vector<sf::Sprite> _TabEnnemy;
+
+
 
 Game::Game()
 {
@@ -24,12 +27,15 @@ void Game::load()
 	_Player.setPosition(WINDOW_WIDTH / 2.0f, 800.0f);
 	changeX = WINDOW_WIDTH / 2.0f;
 	changeY = 800.0f;
+
 	for (int i = 0; i < SPRITE_COUNT_X; i++)
 	{
 		for (int j = 0; j < SPRITE_COUNT_Y; j++)
 		{
 			_Enemy[i][j].setTexture(_TextureEnemy);
 			_Enemy[i][j].setPosition(100.f + 50.f * (i + 1), 10.f + 50.f * (j + 1));
+			// on push les position des ennemy pour les recuperer plus tard.
+			_TabEnnemy.push_back(_Enemy[i][j]);
 		}
 	}
 	_TextureBlast.loadFromFile("assets/blast.png");
@@ -70,12 +76,28 @@ void Game::envoyerMissile()
 	_Missile.setPosition(_Player.getPosition().x+25, (_Player.getPosition().y - 120.0f));
 	int a = _Missile.getPosition().x;
 	printf("%i",a);
+
+
 	int b = _Missile.getPosition().y;
 	printf("%i",b);
 	for (size_t i = b; i < _Missile.getPosition().y; i + 4)
 	{
 		_Missile.setPosition(a, i);
+        for (int p = 0; p <= _TabEnnemy.size() ; p++)
+        {
+            // recuperer une position ennemy, le missile avancera jusqu'a la position de x de l'ennemy
+            for (a; a <= p ; ++a)
+            {
+                // foutre un set timeout a chaque fois que l'on modifie la pos(x) du missile
+                // avance de +1 sur X
+
+            }
+            // supprimer le sprite en récuperant sa position
+            // et le supprimer de la liste de sprite ennemy
+        }
+
 	}
+
 
 }
 
