@@ -80,6 +80,7 @@ void Game::envoyerMissile()
 
 	int b = _Missile.getPosition().y;
 	printf("%i",b);
+
 	for (size_t i = b; i < _Missile.getPosition().y; i + 4)
 	{
 		_Missile.setPosition(a, i);
@@ -90,12 +91,30 @@ void Game::envoyerMissile()
             {
                 // foutre un set timeout a chaque fois que l'on modifie la pos(x) du missile
                 // avance de +1 sur X
-
+				_Missile.setPosition(b, a);
+				
             }
             // supprimer le sprite en récuperant sa position
             // et le supprimer de la liste de sprite ennemy
         }
 
+	}
+
+	for (size_t i = 0; i < SPRITE_COUNT_X; i++)
+	{
+		for (size_t j = 0; j < SPRITE_COUNT_Y; j++)
+		{
+			_positionEnnemyX[i][j] = _Enemy[i][j].getPosition().x;
+			_positionEnnemyY[i][j] = _Enemy[i][j].getPosition().y;
+			while (_Missile.getPosition().y < _positionEnnemyY[i][j])
+			{
+				_Missile.setPosition(a, b);
+				b++;
+			}
+			//if (_Missile.getPosition().x == _positionEnnemyX[i][j])
+			//{
+			//}
+		}
 	}
 
 

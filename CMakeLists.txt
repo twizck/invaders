@@ -7,7 +7,7 @@ add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/spdlog")
 find_library(spdlog REQUIRED)
 
 # the directory where sfml is located
-set(SFML_DIR "/usr/local/Cellar/sfml/2.5.1")
+set(SFML_DIR "D:/Users/Hugo/Documents/cours2019-2020/C++/SFML-2.5.1/lib/cmake/SFML")
 find_package(SFML 2.5 COMPONENTS graphics window audio REQUIRED)
 
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/include")

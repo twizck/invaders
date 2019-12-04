@@ -26,7 +26,8 @@ private:
 	sf::Sprite	_Enemy[SPRITE_COUNT_X][SPRITE_COUNT_Y];
 	sf::Sprite _Player;
 	sf::Sprite _Missile;
-
+	size_t _positionEnnemyX[SPRITE_COUNT_X][SPRITE_COUNT_Y];
+	size_t _positionEnnemyY[SPRITE_COUNT_X][SPRITE_COUNT_Y];
 
 public:
     Game(void);
