@@ -11,8 +11,8 @@ class Game
 {
 private:
     void update();
-	void envoyerMissile();
     void load();
+    void envoyerMissile();
     void wideText(const std::string &text, const sf::Color &color);
 	bool mIsMovingLeft;
 	bool mIsMovingRight;

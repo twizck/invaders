@@ -6,13 +6,9 @@
 
 #IncludeRegexTransform: 
 
-../include/Entity.h
+../include/game.h
 invaders.h
 ../include/invaders.h
-
-../include/EntityManager.h
-Entity.h
-../include/Entity.h
 
 ../include/invaders.h
 SFML/Window.hpp
@@ -614,13 +610,9 @@ spdlog-inl.h
 
 ../spdlog/include/spdlog/version.h
 
-/Users/hugolantillon/Documents/Dev/invaders/src/Entity.cpp
-Entity.h
-/Users/hugolantillon/Documents/Dev/invaders/src/Entity.h
-
-/Users/hugolantillon/Documents/Dev/invaders/src/EntityManager.cpp
-EntityManager.h
-/Users/hugolantillon/Documents/Dev/invaders/src/EntityManager.h
+/Users/hugolantillon/Documents/Dev/invaders/src/game.cpp
+game.h
+/Users/hugolantillon/Documents/Dev/invaders/src/game.h
 
 /usr/local/include/SFML/Config.hpp
 TargetConditionals.h

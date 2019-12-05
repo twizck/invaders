@@ -1,9 +1,6 @@
 #include "game.h"
 
-bool oo;
 std::vector<sf::Sprite> _TabEnnemy;
-
-
 
 Game::Game()
 {
@@ -38,8 +35,6 @@ void Game::load()
 			_TabEnnemy.push_back(_Enemy[i][j]);
 		}
 	}
-	_TextureBlast.loadFromFile("assets/blast.png");
-	_Missile.setTexture(_TextureBlast);
 }
 
 void Game::wideText(const std::string& text, const sf::Color& color)
@@ -71,51 +66,51 @@ void Game::update()
 	
 }
 
+
 void Game::envoyerMissile()
 {
+    _TextureBlast.loadFromFile("assets/blast.png");
+    _Missile.setTexture(_TextureBlast);
 	_Missile.setPosition(_Player.getPosition().x+25, (_Player.getPosition().y - 120.0f));
-	int a = _Missile.getPosition().x;
-	printf("%i",a);
+    //get initialize position for missile from player
+	int X = _Missile.getPosition().x;
+	int Y = _Missile.getPosition().y;
+	//parameter for move on
 
+    sf::FloatRect boxMissile = _Missile.getGlobalBounds();
 
-	int b = _Missile.getPosition().y;
-	printf("%i",b);
-
-	for (size_t i = b; i < _Missile.getPosition().y; i + 4)
-	{
-		_Missile.setPosition(a, i);
-        for (int p = 0; p <= _TabEnnemy.size() ; p++)
+        for (int i = 0; i < SPRITE_COUNT_X; i++)
         {
-            // recuperer une position ennemy, le missile avancera jusqu'a la position de x de l'ennemy
-            for (a; a <= p ; ++a)
+            for (int j = 0; j < SPRITE_COUNT_Y; j++)
             {
-                // foutre un set timeout a chaque fois que l'on modifie la pos(x) du missile
-                // avance de +1 sur X
-				_Missile.setPosition(b, a);
-				
+                sf::FloatRect boxEnnemy = _Enemy[i][j].getGlobalBounds();
+
+                    if(boxEnnemy.intersects(boxMissile)){
+                        //collision
+                    } else {
+                        //avancer
+                        _Missile.setPosition(X,Y-50);
+                    }
+
+                while(boxEnnemy.intersects(boxMissile)){
+                    // avancer jusqu'a avoir la collision ?
+
+                    _Missile.move(X,Y-50);
+                }
             }
-            // supprimer le sprite en récuperant sa position
-            // et le supprimer de la liste de sprite ennemy
         }
 
-	}
 
-	for (size_t i = 0; i < SPRITE_COUNT_X; i++)
-	{
-		for (size_t j = 0; j < SPRITE_COUNT_Y; j++)
-		{
-			_positionEnnemyX[i][j] = _Enemy[i][j].getPosition().x;
-			_positionEnnemyY[i][j] = _Enemy[i][j].getPosition().y;
-			while (_Missile.getPosition().y < _positionEnnemyY[i][j])
-			{
-				_Missile.setPosition(a, b);
-				b++;
-			}
-			//if (_Missile.getPosition().x == _positionEnnemyX[i][j])
-			//{
-			//}
-		}
-	}
+	//faire un if qui verifie
+
+	//faire bouger le missile sur Y
+
+	    // recuperer une position ennemy, le missile avancera jusqu'a la position de y de l'ennemy
+	    // foutre un set timer a chaque fois que l'on modifie la pos(y) du missile
+	    // avance de +1 sur Y
+	    // supprimer le sprite en récuperant sa position
+	    // et le supprimer de la liste de sprite ennemy
+
 
 
 }
@@ -159,7 +154,7 @@ void Game::loop()
 					_Player.setPosition(changeX, changeY);
 				}
 				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-					envoyerMissile();
+                    envoyerMissile();
 				}
 				break;
 			case sf::Event::Closed:
