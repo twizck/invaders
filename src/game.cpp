@@ -54,12 +54,9 @@ void Game::update()
 	
 	_window.draw(_Player);
 
-	for (size_t i = 0; i < SPRITE_COUNT_X; i++)
+	for each (sf::Sprite Ennemy in _TabEnnemy)
 	{
-		for (size_t j = 0; j < SPRITE_COUNT_Y; j++)
-		{
-			_window.draw(_Enemy[i][j]);
-		}
+		_window.draw(Ennemy);
 	}
 
 	_window.draw(_Missile);
