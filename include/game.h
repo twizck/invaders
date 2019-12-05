@@ -1,8 +1,8 @@
 #pragma once
 #include "invaders.h"
 
-#define SPRITE_COUNT_X 18
-#define SPRITE_COUNT_Y 5
+#define SPRITE_COUNT_X 10
+#define SPRITE_COUNT_Y 4
 
 /*
 ** Game handling

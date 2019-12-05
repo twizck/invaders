@@ -1,6 +1,7 @@
 #include "game.h"
 
 std::vector<sf::Sprite> _TabEnnemy;
+std::vector<sf::Sprite> _TabMissile;
 
 Game::Game()
 {
@@ -69,41 +70,47 @@ void Game::envoyerMissile()
     _TextureBlast.loadFromFile("assets/blast.png");
     _Missile.setTexture(_TextureBlast);
 	_Missile.setPosition(_Player.getPosition().x+25, (_Player.getPosition().y - 120.0f));
-    //get initialize position for missile from player
+	_TabMissile.push_back(_Missile);
+
+    //recup position x et y du missile de base
 	int X = _Missile.getPosition().x;
 	int Y = _Missile.getPosition().y;
-	//parameter for move on
 
+	//parameter for move on
     sf::FloatRect boxMissile = _Missile.getGlobalBounds();
 
-        for (int i = 0; i < SPRITE_COUNT_X; i++)
-        {
-            for (int j = 0; j < SPRITE_COUNT_Y; j++)
-            {
-                sf::FloatRect boxEnnemy = _Enemy[i][j].getGlobalBounds();
+	// Bouclez sur les ennemy pour recup leurs positions 
+	for each (sf::Sprite Missile in _TabMissile)
+	{
+		for each (sf::Sprite Ennemy in _TabEnnemy)
+		{
+			//recup le global bounds de l'ennemy pour detecter les collisions
+			sf::FloatRect boxEnnemy = Ennemy.getGlobalBounds();
+			if (boxEnnemy.intersects(boxMissile)) {
+				//collision
+				// supprimer ennemy dans le vector
+				// ~ennemy
+				_TabEnnemy.pop_back();
+				// supprimer le missile
+				// ~missile
+				_TabMissile.pop_back();
+			}
+			else {
+				//avancer
 
-                    if(boxEnnemy.intersects(boxMissile)){
-                        //collision
-                    } else {
-                        //avancer
-                        _Missile.setPosition(X,Y-50);
-                    }
+				_Missile.setPosition(X, Y - 50);
+			}
 
-                while(boxEnnemy.intersects(boxMissile)){
-                    // avancer jusqu'a avoir la collision ?
+			// pb -> boucle infinie
+			while (!boxEnnemy.intersects(boxMissile)) {
+				// avancer jusqu'a avoir la collision ?
 
-                    _Missile.move(X,Y-50);
-                }
-            }
-        }
-
-
-	//faire un if qui verifie
-
-	//faire bouger le missile sur Y
-
+				//_Missile.move(X, Y - 50);
+			}
+		}
+	}
 	    // recuperer une position ennemy, le missile avancera jusqu'a la position de y de l'ennemy
-	    // foutre un set timer a chaque fois que l'on modifie la pos(y) du missile
+	    // timer a chaque fois que l'on modifie la pos(y) du missile
 	    // avance de +1 sur Y
 	    // supprimer le sprite en récuperant sa position
 	    // et le supprimer de la liste de sprite ennemy
@@ -139,19 +146,6 @@ void Game::loop()
 				}
 				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
 					envoyerMissile();
-				}
-				break;
-			case sf::Event::KeyReleased:
-				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-					changeX += 0;
-					_Player.setPosition(changeX, changeY);
-				}
-				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-					changeX += 0;
-					_Player.setPosition(changeX, changeY);
-				}
-				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-                    envoyerMissile();
 				}
 				break;
 			case sf::Event::Closed:
